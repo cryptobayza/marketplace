@@ -105,7 +105,7 @@ class BuyController extends Controller
                     break;
             }
 
-            if ($buyForm->isSubmitted() && $buyForm->isValid() && $listing->getStock() > 0) {
+            if ($buyForm->isSubmitted() && $buyForm->isValid() && ($listing->getStock() > 0 || is_null($listing->getStock()))) {
                 $wallet = $this->get('App\Service\Wallet\WalletFactory');
 
                 $address = null;
