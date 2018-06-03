@@ -24,7 +24,7 @@ class BuyController extends Controller
         $listingRepo = $em->getRepository(Listing::class);
         $listing = $listingRepo->findOneByUuid($uuid);
 
-        if ($listing->getFlag() == true || $listing->getStock() == 0) {
+        if ($listing->getFlag() == true || ($listing->getStock() == 0 && !is_null($listing->getStock()))) {
             return $this->render('/buy.html.twig', [
                 'order' => [
                     'flag' => true,
