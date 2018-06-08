@@ -43,6 +43,7 @@ How to install gnupg for php: https://secure.php.net/manual/en/gnupg.installatio
 
 1. Put content in web directory
 2. Use composer to install requirements
+3. Copy and put your details in .env from .env.dist
 3. Create .gnupg folder one level up of the marketplace directory. Make sure web server has write permissions.
 4. Web server has write permissions on /public/uploads/
 4. Point request to public/index.php
