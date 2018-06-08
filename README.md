@@ -31,6 +31,7 @@ Guide to setting up Whonix on a dedicated server with no GUI:
 - Better resolution support
 - Check if initial order message is encrypted before sending
 - 32 bit
+- Ban users
 
 ## Requirements:
 
