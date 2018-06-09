@@ -2,6 +2,7 @@
 # This is not production ready, use at your own risk.
 
 Guide to setting up Whonix on a dedicated server with no GUI: 
+https://github.com/cyferconnect/whonix_server_setup
 
 ## Features:
 
