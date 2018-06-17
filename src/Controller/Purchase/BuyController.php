@@ -181,7 +181,9 @@ class BuyController extends Controller
 
                 $listingRepo = $em->getRepository(Listing::class);
                 $listing = $listingRepo->findOneByUuid($order->getListing());
-                $listing->setStock($listing->getStock() - 1);
+                if(!is_null($listing->getStock())){
+                    $listing->setStock($listing->getStock() - 1);
+                }
                 $em->persist($listing);
                 $em->flush();
                 $em->clear();
