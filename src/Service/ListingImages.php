@@ -112,7 +112,7 @@ class ListingImages
     public function removeImages($uuid, $vendor)
     {
         $imageRepo = $this->em->getRepository(\App\Entity\ListingImages::class);
-        $images = $imageRepo->findBy(['uuid' => $uuid, 'vendor' => $vendor]);
+        $images = $imageRepo->findBy(['listing' => $uuid, 'vendor' => $vendor]);
 
         foreach ($images as $image) {
             unlink($this->dir . '/' . $image->getImage());
