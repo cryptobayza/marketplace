@@ -575,6 +575,7 @@ class ListingController extends Controller
             //if finished, add to category total
             if ($add) {
                 $this->get('App\Service\Categories')->addItem($listing->getCategory());
+                $this->get('App\Service\Categories')->addItem($listing->getParentCategory());
             }
 
             return $this->redirect('/listing/handle/search/' . $uuid  . '/');
