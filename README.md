@@ -32,7 +32,6 @@ https://github.com/cyferconnect/whonix_server_setup
 - Better resolution support
 - Check if initial order message is encrypted before sending
 - 32 bit
-- Ban users
 
 ## Requirements:
 
