@@ -35,8 +35,14 @@ class Profile
         } else {
             $userRepo = $this->em->getRepository(User::class);
             $user = $userRepo->findOneByUsername($username);
-            $role = $user->getRole();
-            $username = $user->getUsername();
+
+            if (!is_null($user)) {
+                $role = $user->getRole();
+                $username = $user->getUsername();
+            } else {
+                $role = null;
+                $username = null;
+            }
         }
 
         //get the profile from database
@@ -75,5 +81,24 @@ class Profile
         }
 
         return $role;
+    }
+
+    /**
+     * @param string $username
+     * @return mixed
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function isBanned($username = "")
+    {
+        $profile = null;
+        if ($username == "") {
+            $banned = $this->tokenStorage->getToken()->getUser()->getBanned();
+        } else {
+            $userRepo = $this->em->getRepository(User::class);
+            $user = $userRepo->findOneByUsername($username);
+            $banned = $user->getBanned();
+        }
+
+        return $banned;
     }
 }

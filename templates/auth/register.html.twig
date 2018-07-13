@@ -94,12 +94,12 @@
                                     Invalid pin, must be between 3-6 numbers.
                                 </div>
                             {% endif %}
-                            {% if captchaError %}
-                                <br />
+                            {% for flashMessage in app.session.flashbag.get('captchaError') %}
+                                <br/>
                                 <div class="notification is-danger">
-                                    Invalid captcha.
+                                    {{ flashMessage }}
                                 </div>
-                            {% endif %}
+                            {% endfor %}
                             {{ form_end(form) }}
                         </div>
                     </div>

@@ -30,7 +30,7 @@ class ShippingOption
     /**
      * Price in fiat
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="decimal", precision=8, scale=7)
      */
     private $price;
 
@@ -40,7 +40,7 @@ class ShippingOption
      * CHF
      * EUR
      * GBP
-     * NZD
+     * RUB
      * USD
      *
      * @ORM\Column(type="string")

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\RecoverAcceptType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,13 +20,29 @@ class HomeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $recentVendors = $em->createQuery('select distinct vp from App:VendorProfile vp left join App:Listing l with vp.username = l.username order by vp.id desc')
-            ->setMaxResults(4)
-            ->getArrayResult();
+        if (!is_null($this->getUser())) {
+            $userRepo = $em->getRepository(User::class);
+            $user = $userRepo->findOneByUsername($this->getUser()->getUsername());
 
-        $topVendors = $em->createQuery('select distinct vp from App:VendorProfile vp left join App:Listing l with vp.username = l.username where vp.positive  > 0 order by vp.positive desc')
-            ->setMaxResults(4)
-            ->getArrayResult();
+            if (!$user->getSeenRecover()) {
+                $acceptForm = $this->createForm(RecoverAcceptType::class);
+                $acceptForm->handleRequest($request);
+
+                if ($acceptForm->isSubmitted() && $acceptForm->isValid() && $acceptForm->get('recover')->getData() == $user->getRecover()) {
+                    $user->setSeenRecover(1);
+                    $em->persist($user);
+                    $em->flush();
+                    $em->clear();
+
+                    return $this->redirectToRoute('home');
+                }
+
+                return $this->render('/recover.html.twig', [
+                    'key' => $user->getRecover(),
+                    'acceptForm' => $acceptForm->createView(),
+                ]);
+            }
+        }
 
         if ($this->getUser() !== null) {
             if ($this->getUser()->getRole() === 'new_vendor') {
@@ -38,8 +56,16 @@ class HomeController extends Controller
             }
         }
 
+        $recentVendors = $em->createQuery('select distinct vp from App:VendorProfile vp left join App:Listing l with vp.username = l.username order by vp.id desc')
+            ->setMaxResults(4)
+            ->getArrayResult();
+
+        $topVendors = $em->createQuery('select distinct vp from App:VendorProfile vp left join App:Listing l with vp.username = l.username where vp.positive  > 0 order by vp.positive desc')
+            ->setMaxResults(4)
+            ->getArrayResult();
+
         //hot items for past 5 days.
-        $orders = $em->createQuery('select count(o.listing) as vo, l as listing, li.image from App:Orders o inner join App:ListingImages li with li.listing = o.listing  inner join App:Listing l with o.listing = l.uuid group by o.listing order by vo desc')
+        $orders = $em->createQuery('select count(o.listing) as vo, l as listing, li.image from App:Orders o inner join App:ListingImages li with li.listing = o.listing  inner join App:Listing l with o.listing = l.uuid group by li.image, l.id, o.listing order by vo desc')
             ->setMaxResults(8)
             ->getArrayResult();
 
@@ -80,7 +106,7 @@ class HomeController extends Controller
             }
         }
 
-        $listings = $em->createQuery('select l as listing, li.image as image from App:Listing l join App:ListingImages li with li.listing = l.uuid GROUP BY l.id ORDER BY l.id DESC')
+        $listings = $em->createQuery('select l as listing, li.image as image from App:Listing l join App:ListingImages li with li.listing = l.uuid GROUP BY li.image, l.id ORDER BY l.id DESC')
             ->setMaxResults(12)
             ->getArrayResult();
 
@@ -101,8 +127,6 @@ class HomeController extends Controller
         }
 
         return $this->render('/home/home.html.twig', [
-            'cat' => $request->query->get('cat'),
-            'url' => 'home',
             'recentVendors' => $recentVendors,
             'topVendors' => $topVendors,
             'hotProducts' => $hotProducts,

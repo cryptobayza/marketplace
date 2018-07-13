@@ -58,12 +58,12 @@ class ListingController extends Controller
 
         $subs = [];
         if ($listing->getParent() == 0) {
-            $subs = $em->createQuery('select l as listing, li.image as image from App:Listing l join App:ListingImages li with li.listing = l.uuid where l.parent = :uuid or l.uuid = :uuid GROUP BY l.id')
+            $subs = $em->createQuery('SELECT l as listing FROM App:Listing l WHERE l.parent = :uuid OR l.uuid = :uuid')
                 ->setMaxResults(8)
                 ->setParameter('uuid', $uuid)
                 ->getArrayResult();
         } else {
-            $subs = $em->createQuery('select l as listing, li.image as image from App:Listing l join App:ListingImages li with li.listing = l.uuid where l.parent = :uuid or l.uuid = :uuid GROUP BY l.id')
+            $subs = $em->createQuery('SELECT l as listing FROM App:Listing l WHERE l.parent = :uuid OR l.uuid = :uuid')
                 ->setMaxResults(8)
                 ->setParameter('uuid', $listing->getParent())
                 ->getArrayResult();
@@ -71,7 +71,6 @@ class ListingController extends Controller
 
         $feedbackRepo = $em->getRepository(Feedback::class);
         $feedback = $feedbackRepo->findByListing($uuid);
-
 
         return $this->render('/listing.html.twig', [
             'shipping' => $shippingOptions,

@@ -20,7 +20,7 @@ class CurrencyType extends AbstractType
                     'CHF' => 'CHF',
                     'EUR' => 'EUR',
                     'GBP' => 'GBP',
-                    'NZD' => 'NZD',
+                    'RUB' => 'RUB',
                     'USD' => 'USD',
                 ],
                 'data' => $options['currency']

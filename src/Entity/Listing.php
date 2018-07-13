@@ -107,7 +107,7 @@ class Listing
      * CHF
      * EUR
      * GBP
-     * NZD
+     * RUB
      * USD
      *
      * @ORM\Column(type="string")

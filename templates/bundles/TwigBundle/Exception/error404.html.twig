@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cyfer - 404 Error{% endblock %}
+{% block nav %}{% include '/nav.html.twig' %}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="columns is-multiline">
+            <div class="column is-8 is-offset-2">
+                <div class="content">
+                    <div class="columns is-multiline">
+                        <div class="column is-full">
+                            <div class="tabs is-paddingless-left">
+                                <ul class="is-marginless-left">
+                                    <li></li>
+                                    <li role="nav" class="is-active"><a>404 Error</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="column is-full">
+                            <article class="message is-danger">
+                                <div class="message-header">
+                                    <p>Error Box</p>
+                                </div>
+                                <div class="message-body">
+                                    <strong>This page does not exist.</strong> You may want to visit the <a href="/">home page.</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

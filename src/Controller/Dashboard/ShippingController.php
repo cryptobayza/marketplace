@@ -49,7 +49,7 @@ class ShippingController extends Controller
             $shippingOption = new ShippingOption();
             $shippingOption->setUsername($this->getUser()->getUsername());
             $shippingOption->setShippingOption($option);
-            $shippingOption->setPrice(number_format($price, 2));
+            $shippingOption->setPrice(number_format($price, 2, '.', ''));
             $shippingOption->setFiat($profile->getFiat());
             $em->persist($shippingOption);
             $em->flush();

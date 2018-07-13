@@ -155,6 +155,13 @@ class VendorProfile
      */
     private $level = 1;
 
+    /**
+     * Wallet level for multisig
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $hdLevel = 0;
+
     public function getId()
     {
         return $this->id;
@@ -393,5 +400,15 @@ class VendorProfile
     public function setLevel($level)
     {
         $this->level = $level;
+    }
+
+    public function getHDLevel()
+    {
+        return $this->hdLevel;
+    }
+
+    public function setHDLevel($hdLevel)
+    {
+        $this->hdLevel = $hdLevel;
     }
 }

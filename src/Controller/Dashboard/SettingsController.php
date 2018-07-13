@@ -74,6 +74,9 @@ class SettingsController extends Controller
             }
 
             if (is_array($info)) {
+                if (empty($profile->getPGP())) {
+                    $this->get('App\Service\Experience')->update($this->getUser()->getUsername(), 500);
+                }
                 $profile->setTwoFactor($twoFactor);
                 $profile->setPGP($pgp);
                 $profile->setFingerprint($info['fingerprint']);
@@ -336,6 +339,16 @@ class SettingsController extends Controller
         $profileForm->handleRequest($request);
 
         if ($profileForm->isSubmitted() && $profileForm->isValid()) {
+            if (!empty($profileForm->get('image')->getData())) {
+                $image = $profileForm->get('image')->getData();
+                $imageName = md5(time() . rand(1, 1000000)) . '.' . $image->guessExtension();
+                $image->move(
+                    $this->getParameter('profile_directory'),
+                    $imageName
+                );
+                $profile->setProfileImage($imageName);
+            }
+
             $profile->setProfile($profileForm->get('profile')->getData());
             $em->merge($profile);
             $em->flush();
@@ -346,6 +359,7 @@ class SettingsController extends Controller
 
         return $this->render('/dashboard/shared/profile.html.twig', [
             'profileForm' => $profileForm->createView(),
+            'profile' => $profile->getProfileImage(),
         ]);
     }
 }

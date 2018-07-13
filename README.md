@@ -52,3 +52,4 @@ How to install gnupg for php: https://secure.php.net/manual/en/gnupg.installatio
 6. Login as admin and create categories
 7. Modify config/rpc.yaml with your rpc info
 8. Add a PGP key without a password to the config .key files
+

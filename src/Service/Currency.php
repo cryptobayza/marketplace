@@ -25,7 +25,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);
@@ -58,7 +58,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);
@@ -92,7 +92,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);
@@ -125,7 +125,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);
@@ -159,7 +159,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);
@@ -192,7 +192,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);
@@ -226,7 +226,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);
@@ -259,7 +259,7 @@ class Currency
             'CHF',
             'EUR',
             'GBP',
-            'NZD',
+            'RUB',
             'USD',];
 
         $cryptoRepo = $this->em->getRepository(CryptoPrice::class);

@@ -312,33 +312,6 @@ a{
 .card-footer-flex{
     margin-top:auto;
 }
-.wishlist-link{
-    background-color:whitesmoke;
-    color:#7a7a7a;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    border-radius: 3px;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    font-size: 1rem;
-    height: 2.25em;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    line-height: 1.5;
-    padding-bottom: calc(0.375em - 1px);
-    padding-left: calc(0.625em - 1px);
-    padding-right: calc(0.625em - 1px);
-    padding-top: calc(0.375em - 1px);
-    position: relative;
-    vertical-align: top;
-    border-color: whitesmoke;
-    max-width: 100%;
-    width: 100%;
-}
 .listing-image{
     height:100%;
     display:flex;
@@ -414,4 +387,8 @@ a{
 }
 .has-text-small{
     font-size:0.8em !important;
+}
+.background-none{
+    background-color: transparent;
+    border-width:0px;
 }

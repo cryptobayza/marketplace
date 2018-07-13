@@ -21,16 +21,16 @@ class StaffPickController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $categoryForm = $this->createForm(StaffPickType::class);
-        $categoryForm->handleRequest($request);
+        $pickForm = $this->createForm(StaffPickType::class);
+        $pickForm->handleRequest($request);
 
-        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+        if ($pickForm->isSubmitted() && $pickForm->isValid()) {
             $listingRepo = $em->getRepository(Listing::class);
-            $listing = $listingRepo->findOneByUuid($categoryForm->get('listing')->getData());
+            $listing = $listingRepo->findOneByUuid($pickForm->get('listing')->getData());
 
             if (!empty($listing)) {
                 $category = new StaffPick();
-                $category->setListing($categoryForm->get('listing')->getData());
+                $category->setListing($pickForm->get('listing')->getData());
                 $category->setTitle($listing->getTitle());
                 $em->persist($category);
                 $em->flush();
@@ -47,7 +47,7 @@ class StaffPickController extends Controller
         $staffPicks = $staffPickRepo->findAll();
 
         return $this->render('/dashboard/admin/staffpick.html.twig', [
-            'pickForm' => $categoryForm->createView(),
+            'pickForm' => $pickForm->createView(),
             'staffPicks' => $staffPicks,
         ]);
     }

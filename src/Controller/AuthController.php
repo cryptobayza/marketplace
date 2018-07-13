@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ReferralBalance;
+use App\Form\RecoverType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,12 +107,11 @@ class AuthController extends Controller
     {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
-
         $form->handleRequest($request);
 
+        $session =  new Session();
         $securimage = $this->get('App\Service\Securimage');
 
-        $captchaError = false;
         if ($form->isSubmitted() && $form->isValid()) {
             if ($securimage->check($request->request->get('_captcha')) == true) {
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
@@ -119,6 +119,7 @@ class AuthController extends Controller
                 $user->setPin($form->get('pin')->getData());
                 $user->setRole($form->get('role')->getData());
                 $user->setUsername($form->get('username')->getData());
+                $user->setRecover(bin2hex(openssl_random_pseudo_bytes(30)));
 
                 $em = $this->getDoctrine()->getManager();
 
@@ -147,16 +148,53 @@ class AuthController extends Controller
 
                 return $this->redirectToRoute('login');
             } else {
-                $captchaError = true;
+                $session->getFlashBag()->add('captchaError', "Invalid captcha.");
             }
         }
 
         return $this->render('/auth/register.html.twig', [
             'token' => $token,
             'form' => $form->createView(),
-            'captchaError' => $captchaError,
         ]);
     }
+
+    /**
+     * @Route("/forgot/", name="forgot")
+     */
+    public function forgotAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $recoverForm = $this->createForm(RecoverType::class);
+        $recoverForm->handleRequest($request);
+
+        $session = new Session();
+        $securimage = $this->get('App\Service\Securimage');
+
+        if ($recoverForm->isSubmitted() && $recoverForm->isValid()) {
+            if ($securimage->check($request->request->get('_captcha')) == true) {
+                $em = $this->getDoctrine()->getManager();
+                $userRepo = $em->getRepository(User::class);
+                $user = $userRepo->findOneByUsername($recoverForm->get('username')->getData());
+
+                if ($user->getRecover() == $recoverForm->get('key')->getData()) {
+                    $password = $passwordEncoder->encodePassword(new User(), $recoverForm->get('password')->getData());
+                    $user->setPassword($password);
+                    $em->persist($user);
+                    $em->flush();
+                    $em->clear();
+                    return $this->redirectToRoute('login');
+                } else {
+                    $session->getFlashBag()->add('recoverError', "Incorrect recover code.");
+                }
+            } else {
+                $session->getFlashBag()->add('captchaError', "Invalid captcha.");
+            }
+        }
+
+        return $this->render('/auth/forgot.html.twig', [
+            'recoverForm' => $recoverForm->createView(),
+        ]);
+    }
+
 
     /**
      * @Route("/logout/", name="logout")

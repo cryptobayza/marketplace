@@ -19,11 +19,13 @@ class ProfileController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $profile = $this->get('App\Service\Profile')->getProfile($username);
-        $role = $this->get('App\Service\Profile')->getRole($username);
 
         if ($profile == null) {
             throw $this->createNotFoundException('This user was not found.');
         }
+
+        $role = $this->get('App\Service\Profile')->getRole($username);
+        $banned = $this->get('App\Service\Profile')->isBanned($username);
 
         $feedback = "";
         if ($role == "vendor") {
@@ -40,8 +42,8 @@ class ProfileController extends Controller
         return $this->render('/profile.html.twig', [
             'user' => $profile,
             'feedback' => $feedback,
-            'pgp' => $profile->getPGP(),
             'role' => $role,
+            'banned' => $banned,
         ]);
     }
 }

@@ -31,11 +31,11 @@ class FetchPrice
                 'CHF',
                 'EUR',
                 'GBP',
-                'NZD',
+                'RUB',
                 'USD'];
 
         $curl_handle = curl_init();
-        curl_setopt($curl_handle, CURLOPT_URL, 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=AUD,CAD,CHF,EUR,GBP,NZD,USD');
+        curl_setopt($curl_handle, CURLOPT_URL, 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=AUD,CAD,CHF,EUR,GBP,RUB,USD');
         curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
         $cryptoCompare = json_decode(curl_exec($curl_handle), true);
@@ -45,10 +45,10 @@ class FetchPrice
         //insert each of the crypto into the database
         foreach ($currencies as $currency) {
             $curl_handle = curl_init();
-            curl_setopt($curl_handle, CURLOPT_URL, 'https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=' . $currency);
+            curl_setopt($curl_handle, CURLOPT_URL, 'https://api.coinmarketcap.com/v2/ticker/1/?convert=' . $currency);
             curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
             curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-            $coinMarket = json_decode(curl_exec($curl_handle), true)[0]['price_' . strtolower($currency)];
+            $coinMarket = json_decode(curl_exec($curl_handle), true)['data']['quotes'][$currency]['price'];
 
             if ($cryptoCompare[$currency] != 0 && $coinMarket != 0) {
                 $price = ($cryptoCompare[$currency] + $coinMarket)/2;
@@ -68,11 +68,11 @@ class FetchPrice
                 'CHF',
                 'EUR',
                 'GBP',
-                'NZD',
+                'RUB',
                 'USD'];
 
         $curl_handle = curl_init();
-        curl_setopt($curl_handle, CURLOPT_URL, 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=AUD,CAD,CHF,EUR,GBP,NZD,USD');
+        curl_setopt($curl_handle, CURLOPT_URL, 'https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=AUD,CAD,CHF,EUR,GBP,RUB,USD');
         curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
         $cryptoCompare = json_decode(curl_exec($curl_handle), true);
@@ -82,10 +82,10 @@ class FetchPrice
         //insert each of the crypto into the database
         foreach ($currencies as $currency) {
             $curl_handle = curl_init();
-            curl_setopt($curl_handle, CURLOPT_URL, 'https://api.coinmarketcap.com/v1/ticker/monero/?convert=' . $currency);
+            curl_setopt($curl_handle, CURLOPT_URL, 'https://api.coinmarketcap.com/v2/ticker/328/?convert=' . $currency);
             curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
             curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-            $coinMarket = json_decode(curl_exec($curl_handle), true)[0]['price_' . strtolower($currency)];
+            $coinMarket = json_decode(curl_exec($curl_handle), true)['data']['quotes'][$currency]['price'];
 
             if ($cryptoCompare[$currency] != 0 && $coinMarket != 0) {
                 $price = ($cryptoCompare[$currency] + $coinMarket)/2;
@@ -105,11 +105,11 @@ class FetchPrice
                 'CHF',
                 'EUR',
                 'GBP',
-                'NZD',
+                'RUB',
                 'USD'];
 
         $curl_handle = curl_init();
-        curl_setopt($curl_handle, CURLOPT_URL, 'https://min-api.cryptocompare.com/data/price?fsym=ZEC&tsyms=AUD,CAD,CHF,EUR,GBP,NZD,USD');
+        curl_setopt($curl_handle, CURLOPT_URL, 'https://min-api.cryptocompare.com/data/price?fsym=ZEC&tsyms=AUD,CAD,CHF,EUR,GBP,RUB,USD');
         curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
         $cryptoCompare = json_decode(curl_exec($curl_handle), true);
@@ -119,10 +119,10 @@ class FetchPrice
         //insert each of the crypto into the database
         foreach ($currencies as $currency) {
             $curl_handle = curl_init();
-            curl_setopt($curl_handle, CURLOPT_URL, 'https://api.coinmarketcap.com/v1/ticker/zcash/?convert=' . $currency);
+            curl_setopt($curl_handle, CURLOPT_URL, 'https://api.coinmarketcap.com/v2/ticker/1437/?convert=' . $currency);
             curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 10);
             curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
-            $coinMarket = json_decode(curl_exec($curl_handle), true)[0]['price_' . strtolower($currency)];
+            $coinMarket = json_decode(curl_exec($curl_handle), true)['data']['quotes'][$currency]['price'];
 
             if ($cryptoCompare[$currency] != 0 && $coinMarket != 0) {
                 $price = ($cryptoCompare[$currency] + $coinMarket)/2;

@@ -29,7 +29,7 @@ class CryptoPrice
      * CHF
      * EUR
      * GBP
-     * NZD
+     * RUB
      * USD
      *
      * @ORM\Column(type="string")
@@ -39,7 +39,7 @@ class CryptoPrice
     /**
      * Price compared to fiat of crypto
      *
-     * @ORM\Column(type="decimal", precision=7, scale=2)
+     * @ORM\Column(type="decimal", precision=8, scale=2)
      */
     private $price;
 

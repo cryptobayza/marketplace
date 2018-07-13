@@ -38,17 +38,10 @@
                                 </div>
                             </div>
                             <div class="column is-full">
-                                {% if listings is empty %}
-                                    <div class="message">
-                                        <article class="message-body">
-                                            <h2>You have no listings in your wishlist.</h2>
-                                        </article>
-                                    </div>
-                                {% endif %}
                                 <div class="columns is-multiline">
                                     {% if link is not empty %}
                                         <div class="column is-full">
-                                            <p class="is-block wishlist-link">{{ link }}</p>
+                                            <input type="text" style="width:100%;" value="{{ link }}" readonly/>
                                         </div>
                                     {% endif %}
                                     {% for listing in listings %}
@@ -92,6 +85,15 @@
                                             </div>
                                         </div>
                                     {% endfor %}
+                                    {% if listings is empty %}
+                                        <div class="column is-full">
+                                            <div class="message">
+                                                <article class="message-body">
+                                                    <h2>You have no listings in your wishlist.</h2>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

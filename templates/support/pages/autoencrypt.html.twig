@@ -1,0 +1,39 @@
+{% extends '/base.html.twig' %}
+
+{% block title %}Cyfer - Privacy{% endblock %}
+{% block nav %}{% include '/nav.html.twig' %}{% endblock %}
+
+{% block body %}
+    <br />
+    <div class="container-fluid">
+        <div class="columns is-multiline">
+            <div class="column is-four-fifths is-offset-one-fifth">
+                <div class="content">
+                    <div class="column is-10">
+                        <div class="columns">
+                            <div class="column is-full">
+                                <div class="tabs is-paddingless-left">
+                                    <ul class="is-marginless-left">
+                                        <li></li>
+                                        <li role="nav"><a href="/support/">Support/FAQs</a></li>
+                                        <li role="nav" class="is-active"><a>Auto Encrypt</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <ul>
+                                    <li>When using auto encrypt, the data you enter is sent to the server and encrypted.</li>
+                                    <li>This means that anyone who controls the server, is able to read the data you send.</li>
+                                    <li>The marketplace is built so that the message is encrypted and the plain text is wiped.</li>
+                                    <li>The marketplace can be modified so that the plain text is stored if the operator is malicious.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

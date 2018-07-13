@@ -179,6 +179,7 @@ class ListingController extends Controller
 
 
         $selected = [];
+        $parent = [];
         foreach ($listings as $single) {
             $parent[$single->getTitle()] = $single->getUUID();
             if ($single->getUUID() == $listing->getParent()) {

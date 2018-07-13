@@ -12,21 +12,41 @@
                     <div class="panel-heading">
                         <div class="columns">
                             <div class="column is-6">
-                                <p style="margin-top:2px;" class="is-inline-block is-marginless-bottom">{{ user.username }}</p>
-                                {% if role == 'buyer' %}
-                                    <span class="tag is-primary">User</span>
-                                {% elseif user.verified and role == 'vendor' %}
-                                    <span class="tag is-success"><i class="fa fa-star"></i>&nbsp;Trusted Vendor</span>
-                                {% elseif role == 'vendor' %}
-                                    <span class="tag is-primary">vendor</span>
-                                {% else %}
-                                    <span class="tag is-primary">user</span>
-                                {% endif %}
-                                <span class="tag is-warning">Level {{ user.level }}</span>
-                                <br />
-                                {% if role == 'vendor' %}
-                                    <small class="has-text-grey has-text-small">Last seen - {{ user.lastSeen|date("Y-m-d") }} UTC | <i class="fa fa-user"></i> user since - {{ user.joinDate|date("Y-m-d") }}</small>
-                                {% endif %}
+                                <div class="columns">
+                                    <div class="column is-2">
+                                        {% if user.profileImage is not empty%}
+                                            <img style="margin-top:2px;max-height:90px;max-width:90px;" src="/uploads/profile/{{ user.profileImage }}"/>
+                                        {% else %}
+                                            <img style="margin-top:2px;max-height:90px;max-width:90px;" src="/uploads/profile/default.svg"/>
+                                        {% endif %}
+                                    </div>
+                                    <div class="column is-10">
+                                        <p style="margin-top:2px;" class="is-inline-block is-marginless-bottom">{{ user.username }}</p>
+                                        {% if role == 'buyer' %}
+                                            <span class="tag is-primary">User</span>
+                                        {% elseif role == 'admin' %}
+                                            <span class="tag is-success">Admin</span>
+                                        {% elseif role == 'vendor' %}
+                                            <span class="tag is-primary">Vendor</span>
+                                        {% elseif user.verified and role == 'vendor' %}
+                                            <span class="tag is-success"><i class="fa fa-star"></i>&nbsp;Trusted Vendor</span>
+                                        {% endif %}
+                                        {% if role != 'admin' %}
+                                            <span class="tag is-warning">Level {{ user.level }}</span>
+                                        {% endif %}
+                                        {% if banned == 1 %}
+                                            <span class="tag is-danger">Banned</span>
+                                        {% endif %}
+                                        <br />
+                                        {% if role == 'vendor' %}
+                                            <small class="has-text-grey has-text-small">Last seen - {{ user.lastSeen|date("Y-m-d") }} UTC | <i class="fa fa-user"></i> user since - {{ user.joinDate|date("Y-m-d") }}</small>
+                                        {% endif %}
+                                        {% if user.profile is not empty %}
+                                            <hr class="hr-sm" />
+                                            <p class="has-text-small">{{ user.profile }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
                             {% if role == 'vendor' %}
                                 <br />

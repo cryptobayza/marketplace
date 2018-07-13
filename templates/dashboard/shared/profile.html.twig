@@ -29,6 +29,9 @@
                                 {{ form_start(profileForm) }}
                                 {{  form_errors(profileForm) }}
                                 <div class="field">
+                                    {% if profile is not empty %}
+                                        <img style="margin-top:2px;max-height:90px;max-width:90px;" src="/uploads/profile/{{ profile }}"/>
+                                    {% endif %}
                                     <label class="label">Profile Picture</label>
                                     <div class="control">
                                         {{ form_widget(profileForm.image) }}

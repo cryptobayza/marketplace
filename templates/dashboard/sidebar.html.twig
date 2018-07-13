@@ -32,7 +32,8 @@
         <a href="/shipping/" class="panel-block {{ route == 'shipping' or route == 'newShipping' ? 'is-active' : '' }}">
             <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;Shipping
         </a>
-        <a href="/listings/" class="panel-block {{ route == 'listings' or route == 'newListing' or route == 'tacListing' ? 'is-active' : '' }}">
+        <a href="/listings/" class="panel-block {{ route in ['listings', 'newListing', 'tacListing', 'handleListingCategoryEdit', 'handleListingCategory', 'handleListingInfo', 'handleListingPricing',
+            'handleListingShipping', 'handleListingImages', 'handleListingDescription', 'handleListingSearch', 'handleListingDiscount'] ? 'is-active' : '' }}">
             <i class="fa fa-list" aria-hidden="true"></i>&nbsp;Listings
         </a>
     {% endif %}
@@ -60,6 +61,9 @@
         </a>
         <a href="/staff/pick/" class="panel-block {{ route == 'staffPick' ? 'is-active' : '' }}">
             <i class="fa fa-magic" aria-hidden="true"></i>&nbsp;Staff Picks
+        </a>
+        <a href="/staff/ban/" class="panel-block {{ route == 'staffBan' ? 'is-active' : '' }}">
+            <i class="fa fa-institution" aria-hidden="true"></i>&nbsp;Ban
         </a>
     {% endif %}
 </div>

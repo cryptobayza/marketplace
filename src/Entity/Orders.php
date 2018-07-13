@@ -90,42 +90,49 @@ class Orders
     /**
      * price per item * amount
      *
-     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $price;
 
     /**
      * dollar fee
      *
-     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $fee;
 
     /**
      * crypto fee
      *
-     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=8)
      */
     private $cryptoFee;
 
     /**
+     * crypto blockchain fee
+     *
+     * @ORM\Column(type="decimal", precision=10, scale=8)
+     */
+    private $blockchainFee;
+
+    /**
      * price per item in crypto * amount
      *
-     * @ORM\Column(type="decimal", precision=8, scale=7)
+     * @ORM\Column(type="decimal", precision=10, scale=8)
      */
     private $cryptoPrice;
 
     /**
      * price of shipping
      *
-     * @ORM\Column(type="decimal", precision=7, scale=2)
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $shippingPrice;
 
     /**
      * price of shipping in crypto
      *
-     * @ORM\Column(type="decimal", precision=8, scale=7)
+     * @ORM\Column(type="decimal", precision=10, scale=8)
      */
     private $shippingCryptoPrice;
 
@@ -165,14 +172,14 @@ class Orders
     /**
      * price + shipping price
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $total;
 
     /**
      * crypto price + crypto shipping price
      *
-     * @ORM\Column(type="decimal", precision=8, scale=7)
+     * @ORM\Column(type="decimal", precision=10, scale=8)
      */
     private $cryptoTotal;
 
@@ -377,6 +384,16 @@ class Orders
     public function setCryptoFee($cryptoFee)
     {
         $this->cryptoFee = $cryptoFee;
+    }
+
+    public function getBlockchainFee()
+    {
+        return $this->blockchainFee;
+    }
+
+    public function setBlockchainFee($blockchainFee)
+    {
+        $this->blockchainFee = $blockchainFee;
     }
 
     public function getCryptoPrice()

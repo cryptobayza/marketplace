@@ -56,6 +56,31 @@ class User implements UserInterface
      */
     private $pin;
 
+    /**
+     * If user is banned.
+     * 0 = not banned
+     * 1 = banned
+     *
+     * @ORM\Column(type="integer", length=1)
+     */
+    private $banned = 0;
+
+    /**
+     * Recover account code
+     *
+     * @ORM\Column(type="text")
+     */
+    private $recover;
+
+    /**
+     * If user has seen the recovery code.
+     * 0 = not seen
+     * 1 = seen
+     *
+     * @ORM\Column(type="integer", length=1)
+     */
+    private $seenRecover = 0;
+
     public function getUsername()
     {
         return $this->username;
@@ -124,6 +149,36 @@ class User implements UserInterface
     public function setAuto($auto)
     {
         $this->auto = $auto;
+    }
+
+    public function getBanned()
+    {
+        return $this->banned;
+    }
+
+    public function setBanned($banned)
+    {
+        $this->banned = $banned;
+    }
+
+    public function getRecover()
+    {
+        return $this->recover;
+    }
+
+    public function setRecover($recover)
+    {
+        $this->recover = $recover;
+    }
+
+    public function getSeenRecover()
+    {
+        return $this->seenRecover;
+    }
+
+    public function setSeenRecover($seenRecover)
+    {
+        $this->seenRecover = $seenRecover;
     }
 
     public function eraseCredentials()

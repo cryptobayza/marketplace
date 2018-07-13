@@ -3,6 +3,7 @@
 parameters:
     locale: 'en'
     image_directory: '%kernel.project_dir%/public/uploads/images'
+    profile_directory: '%kernel.project_dir%/public/uploads/profile'
     forum: 'https://example.com'
 services:
     # default configuration for services in *this* file
@@ -77,7 +78,7 @@ services:
     App\Service\Pay:
         arguments: [ "@doctrine.orm.entity_manager", "@security.token_storage" ]
         public: true
-    App\Service\WalletDerive:
+    App\Service\Wallet\WalletDerive:
         public: true
     App\Service\ListingManager:
         arguments: [ "@doctrine.orm.entity_manager", "@security.token_storage", '%image_directory%' ]

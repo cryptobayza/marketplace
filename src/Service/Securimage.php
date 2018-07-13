@@ -225,7 +225,7 @@ no session used
  * @author     Drew Phillips <drew@drew-phillips.com>
  *
  */
-class Securimage
+class Securimage extends Config
 {
     // All of the public variables below are securimage options
     // They can be passed as an array to the Securimage constructor, set below,
@@ -516,7 +516,7 @@ class Securimage
      * The signature text to draw on the bottom corner of the image
      * @var string
      */
-    public $image_signature = 'cyferddddddddddd.onion';
+    public $image_signature = 'example.com';
 
     /**
      * The color of the signature text
@@ -1028,6 +1028,7 @@ class Securimage
     public function __construct($options = array())
     {
         $this->securimage_path = dirname(__FILE__);
+        $this->image_signature = $this->getURL();
 
         if (!is_array($options)) {
             trigger_error(

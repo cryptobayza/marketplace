@@ -156,6 +156,10 @@ class ListingManager
                 $listing->setParent($parent);
             }
 
+            if (empty($parent)) {
+                $listing->setParent(0);
+            }
+
             if ($this->status == 'create') {
                 $listing->setStep(2);
             }

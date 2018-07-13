@@ -123,6 +123,15 @@ class SupportController extends Controller
     }
 
     /**
+     * @Route("/support/privacy/auto/risks/", name="supportAutoEncrypt")
+     */
+    public function autoencryptAction(Request $request)
+    {
+        return $this->render('/support/pages/autoencrypt.html.twig');
+    }
+
+
+    /**
      * @Route("/contact/", name="contact")
      */
     public function contactAction(Request $request)

@@ -20,21 +20,17 @@
                                     <li role="nav" class="is-active">
                                         <a><i class="fa fa-heart"></i>&nbsp;Wishlist</a>
                                     </li>
+                                    <li class="is-pulled-right" style="margin-left:auto;">
+                                        <a class="is-inline-block" target="_blank" href="/profile/{{ username }}/"><strong><i class="fa fa-user-circle" aria-hidden="true"></i></strong>&nbsp;{{ username }}</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="column is-full">
-                            {% if not listings %}
-                                <div class="message">
-                                    <article class="message-body">
-                                        <h2>You have no listings in your wishlist.</h2>
-                                    </article>
-                                </div>
-                            {% endif %}
                             <div class="columns is-multiline">
                                 {% if link is not empty %}
                                     <div class="column is-full">
-                                        <p class="is-block wishlist-link">{{ link }}</p>
+                                        <input type="text" style="width:100%;" value="{{ link }}" readonly/>
                                     </div>
                                 {% endif %}
                                 {% for listing in listings %}
@@ -71,6 +67,15 @@
                                         </a>
                                     </div>
                                 {% endfor %}
+                                {% if not listings %}
+                                    <div class="column is-full">
+                                        <div class="message">
+                                            <article class="message-body">
+                                                <h2>{{ username }} has no listings in their wishlist.</h2>
+                                            </article>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

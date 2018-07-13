@@ -4,6 +4,7 @@ namespace App\Listener;
 use App\Entity\AdminProfile;
 use App\Entity\BuyerProfile;
 use App\Entity\VendorProfile;
+use App\Exception\BannedException;
 use App\Exception\CaptchaException;
 use App\Service\Securimage;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -29,6 +30,10 @@ class LoginListener
         $request = $event->getRequest();
 
         $user = $event->getAuthenticationToken()->getUser();
+
+        if ($user->getBanned()) {
+            throw new BannedException();
+        }
 
         if ($this->securimage->check($request->request->get('_captcha')) == false) {
             throw new CaptchaException();

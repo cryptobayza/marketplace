@@ -9,36 +9,11 @@
 
 {% block body %}
     <br />
-    <div class="container-fluid">
-        <div class="columns is-multiline">
-            <div class="column is-one-fifths">
-                <div class="column is-10 is-offset-2 is-paddingless-top">
-                    {% include 'categories.html.twig' %}
-                </div>
-            </div>
-            <div class="column is-four-fifths">
-                <div class="column is-10">
-                    <div class="content">
-                        <div class="columns is-marginless">
-                            <div class="column">
-                                <h2>Welcome to Cyfer</h2>
-                            </div>
-                        </div>
-                        <hr class="is-marginless"/>
-                        <div class="column">
-                            <p>Greetings,</p>
-                            <p>Cyfer is a privacy centered marketplace that supports Bitcoin, Monero, and Zcash. Consider reading the <a href="/support/">FAQs</a> before getting started!</p>
-                            <b>- Cyfer Team</b>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container-fluid is-multiline">
         <div class="columns">
             <div class="column is-one-fifth">
                 <div class="column is-10 is-offset-2">
+                    {% include 'categories.html.twig' %}
                     <div class="panel" id="homevendors">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -71,7 +46,21 @@
                 </div>
             </div>
             <div class="column is-four-fifths">
-                <br />
+                <div class="column is-10">
+                    <div class="content">
+                        <div class="columns is-marginless">
+                            <div class="column">
+                                <h2>Welcome to Cyfer</h2>
+                            </div>
+                        </div>
+                        <hr class="is-marginless"/>
+                        <div class="column">
+                            <p>Greetings,</p>
+                            <p>Cyfer is a privacy centered marketplace that supports Bitcoin, Monero, and Zcash. Consider reading the <a href="/support/">FAQs</a> before getting started!</p>
+                            <b>- Cyfer Team</b>
+                        </div>
+                    </div>
+                </div>
                 <div class="column is-10">
                     <div class="content">
                         <h3>Hot Products</h3>
@@ -121,10 +110,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="columns">
-            <div class="column is-four-fifths is-offset-one-fifth">
                 <div class="column is-10">
                     <div class="content">
                         <h3>Staff Picks</h3>
@@ -174,11 +159,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="columns">
-            <div class="column is-four-fifths is-offset-one-fifth">
-                <br />
                 <div class="column is-10">
                     <div class="content">
                         <h3>New Products</h3>

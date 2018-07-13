@@ -101,7 +101,7 @@
                                                     <div class="column is-one-third">
                                                         <a href="/l/{{ sub.listing.uuid }}">
                                                             <div class="thumbnail {{ sub.listing.id == listing.id ? 'thumbnail-active' }}">
-                                                                <img title="{{ sub.listing.title }}" class="sub-product" src="/uploads/images/{{ sub.image }}"/>
+                                                                <img title="{{ sub.listing.title }}" class="sub-product" src="/uploads/images/{{ listing_images.getImage(sub.listing.uuid, 0) }}"/>
                                                                 {% set price = sub.listing.price - sub.listing.discount %}
                                                                 <span class="sub-product">{{ price }} {{ sub.listing.fiat }}</span>
                                                             </div>

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cyfer - Recover Account{% endblock %}
+{% block nav %}{% include '/nav.html.twig' %}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="columns is-multiline">
+            <div class="column is-8 is-offset-2">
+                <div class="content">
+                    <div class="columns is-multiline">
+                        <div class="column is-full">
+                            <div class="tabs is-paddingless-left">
+                                <ul class="is-marginless-left">
+                                    <li></li>
+                                    <li role="nav" class="is-active"><a>Recover Key</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="column is-full">
+                            <article class="message is-danger">
+                                <div class="message-header">
+                                    <p>Account Recovery Key</p>
+                                </div>
+                                <div class="message-body">
+                                    {% if app.request.get('confirm')  %}
+                                        {{ form_start(acceptForm) }}
+                                            {{ form_widget(acceptForm.recover) }}
+                                            <br /><br />
+                                            {{ form_widget(acceptForm.verify) }} <a href="/" class="button is-warning">Back</a>
+                                        {{ form_end(acceptForm) }}
+                                    {% else %}
+                                        <strong>Save this key.</strong> This key is used if you forget your password. There is no other way to recover your account than with this key.
+                                        <input value="{{ key }}" style="width:100%;" class="mb-xxs" type="text" readonly/>
+                                        <a href="?confirm=true" class="button is-success"><i class="fa fa-arrow-circle-right"></i>&nbsp;Continue</a>
+                                    {% endif %}
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -39,7 +39,7 @@ class PayController extends Controller
         if ($timeMinutes < 0) {
 
             //check if already changed
-            if($order->getStatus() == 'waiting'){
+            if ($order->getStatus() == 'waiting') {
                 $listingRepo = $em->getRepository(Listing::class);
                 $listing = $listingRepo->findOneByUuid($order->getListing());
                 $listing->setStock($listing->getStock() + 1);
@@ -59,9 +59,9 @@ class PayController extends Controller
         $wallet = $this->get('App\Service\Wallet\WalletFactory');
 
         $address = null;
-        if($order->getCrypto() == 'btc') {
+        if ($order->getCrypto() == 'btc') {
             $bitcoin = $wallet->create('bitcoin');
-            if($bitcoin->getaddressbalance($order->getAddress())['unconfirmed']  >= $order->getCryptoTotal() && !$order->getRecieved()){
+            if ($bitcoin->getaddressbalance($order->getAddress())['unconfirmed']  >= $order->getCryptoTotal() && !$order->getRecieved()) {
                 $order->setRecieved(true);
                 $em->persist($order);
                 $em->flush();
@@ -70,11 +70,11 @@ class PayController extends Controller
             }
         }
 
-        //percentage to put in bar width
-        $timeLeft =  floor((1-(((($order->getStartDate()+900)-time())))/900)*100);
-
         //how long bar should go on for
         $secondsLeft = sprintf('%02d', floor((((($order->getStartDate()+900)-time())))));
+
+        //percentage to put in bar width
+        $timeLeft =  ((1-($secondsLeft/900))*100);
 
         return $this->render('/pay.html.twig', [
             'item' => [

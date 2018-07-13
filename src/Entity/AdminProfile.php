@@ -58,6 +58,11 @@ class AdminProfile
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    private $profile;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $profileImage;
 
     public function getId()
@@ -128,6 +133,16 @@ class AdminProfile
     public function setFingerprint($fingerprint)
     {
         $this->fingerprint = $fingerprint;
+    }
+
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
     }
 
     public function getProfileImage()

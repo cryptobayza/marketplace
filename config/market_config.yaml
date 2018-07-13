@@ -1,4 +1,8 @@
 config:
+    # require that the initial order message be encrypted
+    encrypted_orders: true
+    # url that shows up in the security image
+    url: cyfer.me
     # max transaction fee per level
     # In USD
     max:

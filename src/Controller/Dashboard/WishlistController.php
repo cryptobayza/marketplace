@@ -62,6 +62,7 @@ class WishlistController extends Controller
         $wishlist = $wishlistRepo->findByUsername($this->getUser()->getUsername());
         $wishlistPublic = $wishlistPublicRepo->findOneByUsername($this->getUser()->getUsername());
 
+        $listings = [];
         foreach ($wishlist as $listing) {
             $listings[] = $listingRepo->findOneByUuid($listing->getListing());
         }
@@ -150,6 +151,7 @@ class WishlistController extends Controller
             'currency' => $profile->getFiat(),
             'link' => $link,
             'uuid' => $wishlistPublic->getUUID(),
+            'username' => $wishlistPublic->getUsername(),
         ]);
     }
 }

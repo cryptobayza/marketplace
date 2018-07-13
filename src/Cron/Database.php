@@ -38,7 +38,7 @@ class Database
 
         foreach ($orders as $order) {
             $stmt = $this->db->prepare("DELETE FROM `orders` WHERE `id` = :id");
-            $stmt->execute([':id', $order['id']]);
+            $stmt->execute([':id' => $order['id']]);
         }
     }
 

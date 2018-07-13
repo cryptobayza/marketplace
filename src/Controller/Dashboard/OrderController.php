@@ -41,7 +41,7 @@ class OrderController extends Controller
 
         $totalpages = ceil($this->get('App\Service\DashboardNotifications')->getTotalOrders()/10);
 
-        return $this->render('/dashboard/buyer/orders.html.twig', [
+        return $this->render('/dashboard/shared/orders.html.twig', [
             'orders' => $orders,
             'totalPages' => $totalpages,
             'page' => $page,
@@ -198,7 +198,7 @@ class OrderController extends Controller
             'minutes' => round(($time - (floor($time/86400) * 86400))/1440, 0),
         ];
 
-        return $this->render('/dashboard/buyer/order.html.twig', [
+        return $this->render('/dashboard/shared/order.html.twig', [
             'order' => $order,
             'feedback' => $userFeedback,
             'messages' => $messages,
@@ -358,6 +358,10 @@ class OrderController extends Controller
         $em->merge($order);
         $em->flush();
         $em->clear();
+
+        $wallet = $this->get('App\Service\Wallet\WalletFactory');
+        $bitcoin = $wallet->create('bitcoin');
+        $bitcoin->broadcast($bitcoin->signtransaction($order->getRedeem()));
 
         $vendorRepo = $em->getRepository(VendorProfile::class);
         $vendor = $vendorRepo->findOneByUsername($order->getVendor());

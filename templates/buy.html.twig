@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="field">
                                     <div class="control">
-                                        {{ form_widget(messageForm.encrypt) }} Encrypt with the vendor's PGP key <small class="text-light-grey">(optional)</small>
+                                        {{ form_widget(messageForm.encrypt) }} Encrypt with the vendor's PGP key <a target="_blank" href="/support/privacy/auto/risks">(read risks)</a>
                                     </div>
                                 </div>
                                 <div class="field">
@@ -120,36 +120,6 @@
                                                     </div>
                                                     <div class="column is-half" style="overflow:hidden;">
                                                         <small class="tag" title="{{ order.title }}">{{ order.amount }}<b>x {{ order.title }}</b></small>
-                                                    </div>
-                                                    <div class="column is-half">
-                                                        <small><b>Subtotal:</b></small>
-                                                    </div>
-                                                    <div class="column is-half">
-                                                        <small>
-                                                            {% if order.crypto_currency == 'btc' %}
-                                                                <i class="cc BTC" aria-hidden="true"></i>
-                                                            {% elseif order.crypto_currency == 'xmr' %}
-                                                                <i class="cc XMR" aria-hidden="true"></i>
-                                                            {% elseif order.crypto_currency == 'zec' %}
-                                                                <i class="cc ZEC" aria-hidden="true"></i>
-                                                            {% endif %}
-                                                            {{ order.crypto_price }}
-                                                        </small>
-                                                    </div>
-                                                    <div class="column is-half">
-                                                        <small><b>Shipping:</b></small>
-                                                    </div>
-                                                    <div class="column is-half">
-                                                        <small>
-                                                            {% if order.crypto_currency == 'btc' %}
-                                                                <i class="cc BTC" aria-hidden="true"></i>
-                                                            {% elseif order.crypto_currency == 'xmr' %}
-                                                                <i class="cc XMR" aria-hidden="true"></i>
-                                                            {% elseif order.crypto_currency == 'zec' %}
-                                                                <i class="cc ZEC" aria-hidden="true"></i>
-                                                            {% endif %}
-                                                            {{ order.crypto_shipping_price }}
-                                                        </small>
                                                     </div>
                                                     <div class="column is-half">
                                                         <small><b>Total:</b></small>
@@ -180,6 +150,12 @@
                                                     </div>
                                                     <div class="column is-half">
                                                         <small>{{ order.fiat }} {{ order.shipping_price }}</small>
+                                                    </div>
+                                                    <div class="column is-half">
+                                                        <small><b>Blockchain Fee:</b></small>
+                                                    </div>
+                                                    <div class="column is-half">
+                                                        <small>{{ order.fiat }} {{ order.blockchain_fee }}</small>
                                                     </div>
                                                     <div class="column is-half">
                                                         <small><b>Total:</b></small>

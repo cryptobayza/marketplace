@@ -72,13 +72,39 @@ class Wallet
         $this->port          = $yaml['config'][$type]['port'];
         $this->url           = null;
 
-        if($yaml['config'][$type]['ssl'] == true && isset($yaml['config'][$type]['ssl_path'])){
+        if ($yaml['config'][$type]['ssl'] == true && isset($yaml['config'][$type]['ssl_path'])) {
             // Set some defaults
             $this->proto         = 'https';
             $this->CACertificate = $yaml['config'][$type]['ssl_path'];
         }
     }
 
+    /**
+     * When finalizing/refunding an order.
+     * $mkt_amount will be 0 if refunded.
+     *
+     * @param $receiver_addr string address of receiver
+     * @param $receiver_amount double amount to send to receiver
+     * @param $mkt_addr string address of marketplace
+     * @param $mkt_amount double fee sent to the marketplace
+     * @param $fee double fee for bitcoin transaction
+     * @param $deposit_addr string address the multisig was stored in
+     * @return mixed
+     */
+    public function finalize($receiver_addr, $receiver_amount, $mkt_addr, $mkt_amount, $fee, $deposit_addr)
+    {
+        if ($mkt_amount === 0) {
+            $request = "{\"id\":\"curltext\",\"method\":\"paytomany\",\"params\":{\"outputs\":
+            [[\"{$receiver_addr}\", {$receiver_amount}]],
+             \"fee\": {$fee}, \"from_addr\": \"{$deposit_addr}\"}}";
+        } else {
+            $request = "{\"id\":\"curltext\",\"method\":\"paytomany\",\"params\":{\"outputs\":
+            [[\"{$receiver_addr}\", {$receiver_amount}], [\"{$mkt_addr}\", {$mkt_amount}]],
+             \"fee\": {$fee}, \"from_addr\": \"{$deposit_addr}\"}}";
+        }
+
+        return $this->complete("", $request);
+    }
 
     public function __call($method, $params)
     {
@@ -90,12 +116,16 @@ class Wallet
         $params = array_values($params);
         // The ID should be unique for each call
         $this->id++;
-        // Build the request, it's ok that params might have any empty array
-        $request = json_encode(array(
-            'method' => $method,
-            'params' => $params,
-            'id'     => $this->id
-        ));
+
+        if (!empty($method)) {
+            // Build the request, it's ok that params might have any empty array
+            $request = json_encode(array(
+                'method' => $method,
+                'params' => $params,
+                'id'     => $this->id
+            ));
+        }
+
         // Build the cURL session
         $curl    = curl_init("{$this->proto}://{$this->host}:{$this->port}/{$this->url}");
         $options = array(

@@ -29,4 +29,15 @@ class Config
         $yaml = Yaml::parseFile($_SERVER['DOCUMENT_ROOT'] . '/../config/market_config.yaml');
         return $yaml['config']['max'][$level];
     }
+
+    /**
+     * Get URL of site
+     *
+     * @return string
+     */
+    public function getURL()
+    {
+        $yaml = Yaml::parseFile($_SERVER['DOCUMENT_ROOT'] . '/../config/market_config.yaml');
+        return $yaml['config']['url'];
+    }
 }

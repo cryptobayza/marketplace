@@ -1,5 +1,6 @@
 <?php
 namespace App\Service;
+
 use App\Entity\Orders;
 use App\Service\Wallet\WalletFactory;
 use Doctrine\ORM\EntityManager;
@@ -31,12 +32,12 @@ class Pay
         $order = $ordersRepo->findOneByUuid($uuid);
 
         $confirmed = 0;
-        if($order->getCrypto() == 'btc'){
+        if ($order->getCrypto() == 'btc' && $order->getStatus() == 'waiting') {
             $bitcoin = $this->wallet->create('bitcoin');
             $confirmed = $bitcoin->getaddressbalance($order->getAddress())['confirmed'];
         }
 
-        if($order->getRecieved() && !$order->getConfirmed() && $confirmed >= $order->getCryptoTotal()){
+        if ($order->getRecieved() && !$order->getConfirmed() && $confirmed >= $order->getCryptoTotal()) {
             $order->setConfirmed(true);
             $order->setStatus('pending');
             $order->setBootstrap('primary');
