@@ -35,7 +35,7 @@ https://github.com/cyferconnect/whonix_server_setup
 
 ## Requirements:
 
-php7.2 php7.2-xml php7.2-mysql php7.2-mbstrings php7.2-json php7.2-dev php7.2-curl php7.2-bcmath php7.2-gd mysql5.7 gnugp
+php7.2 php7.2-xml php7.2-mysql php7.2-mbstring php7.2-gmp php7.2-json php7.2-dev php7.2-curl php7.2-bcmath php7.2-gd mysql5.7 gnugp
 
 How to install gnupg for php: https://secure.php.net/manual/en/gnupg.installation.php
 
